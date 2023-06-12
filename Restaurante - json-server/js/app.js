@@ -148,13 +148,16 @@ function agregarPlatillo(producto) {
 
     limpiarHTML();
 
-    obtenerResumen(pedido);
+    if(cliente.pedido.length) {
+        obtenerResumen();
+    } else {
+        mensajePedidoVacio();
+    }
 
 }
 
-function obtenerResumen(platillos = []) {
+function obtenerResumen() {
 
-    // const resumenPedidoDiv = document.querySelector('#resumen');
     const contenidoDiv = document.querySelector('#resumen .contenido');
 
     const resumen = document.createElement('DIV');
@@ -190,10 +193,16 @@ function obtenerResumen(platillos = []) {
     grupo.classList.add('list-group');
 
     const { pedido } = cliente;
+    
+    // if(pedido.length === 0) {
+    //     platillosEliminados();
+    // } else {
 
-    pedido.forEach( platillo => {
-        console.log(platillo);
-        const { id, cantidad, categoria, nombre, precio } = platillo;
+        limpiarHTML();
+
+        pedido.forEach( platillo => {
+
+        const { id, cantidad, nombre, precio } = platillo;
         
         const lista = document.createElement('LI');
         lista.classList.add('list-group-item');
@@ -259,6 +268,10 @@ function obtenerResumen(platillos = []) {
     resumen.appendChild(grupo);
 
     contenidoDiv.appendChild(resumen);
+
+    // Formulario propinas
+
+    formularioPropinas();
 }
 
 function limpiarHTML() {
@@ -282,5 +295,69 @@ function eliminarDelPedido(id) {
 
     limpiarHTML();
 
-    obtenerResumen(pedido);
+
+    if(cliente.pedido.length) {
+        obtenerResumen();
+    } else {
+        mensajePedidoVacio();
+    }
+
+    const inputCantidad = document.querySelector(`#producto-${id}`);
+    inputCantidad.value = 0;
 }
+
+function platillosEliminados() {
+
+    const parrafo = document.querySelector('#resumen .contenido p');
+
+    if(!parrafo) {
+        const contenido = document.createElement('DIV');
+        contenido.classList.add('contenido');
+        
+        const p = document.createElement('P');
+        p.classList.add('text-center');
+        
+        p.textContent = 'No hay productos en el pedido';
+        
+        contenido.appendChild(p);
+        
+        const resumen = document.querySelector('#resumen');
+        
+        resumen.appendChild(contenido);
+        return;
+    } else {
+
+        parrafo.remove();
+    }
+    
+    
+}
+
+function mensajePedidoVacio() {
+    const contenido = document.querySelector('#resumen .contenido');
+
+    const texto = document.createElement('P');
+    texto.classList.add('text-center');
+    texto.textContent = 'No hay productos en el pedido';
+
+    contenido.appendChild(texto);
+}
+
+function formularioPropinas() {
+    const contenido = document.querySelector('#resumen .contenido');
+    
+    const formulario = document.createElement('DIV');
+    formulario.classList.add('col-md-6', 'formulario', 'card', 'py-5', 'px-3', 'shadow');
+
+    const heading = document.createElement('H3');
+    heading.classList.add('my-4');
+    heading.textContent = 'Propina';
+
+    formulario.appendChild(heading);
+
+    contenido.appendChild(formulario);
+}
+
+
+
+
