@@ -1,0 +1,25 @@
+{
+  "clientes": [
+    {
+      "nombre": "Juan",
+      "email": "juan@correo.com",
+      "telefono": "123123123",
+      "empresa": "Codigo con Juan",
+      "id": 26
+    },
+    {
+      "nombre": "Camilo",
+      "email": "camilo@correo.com",
+      "telefono": "12343",
+      "empresa": "Diagnosticar",
+      "id": 27
+    },
+    {
+      "nombre": "Claribeth",
+      "email": "clari@corre.com",
+      "telefono": "31350234",
+      "empresa": "Clari Soft",
+      "id": 29
+    }
+  ]
+}
